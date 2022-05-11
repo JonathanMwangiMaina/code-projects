@@ -5,28 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
-            "name": "Attach to Chrome",
-            "port": 9222,
-            "request": "attach",
-            "type": "chrome",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "pwa-msedge",
-            "request": "launch",
-            "name": "Open template.html",
-            "file": "c:\\Users\\Samsung\\Desktop\\code projects\\template.html"
-        },
-        {
             "type": "pwa-msedge",
             "name": "Launch Microsoft Edge",
             "request": "launch",
