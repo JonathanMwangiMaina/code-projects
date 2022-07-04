@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Power Learn Project</title>
+        <link rel="stylesheet" href="assets/css/style-liberty.css"> 
+        <script>
+            $(document).ready(function() {
+              var headerHeight = 0
+            
+              function dynamicHeaderHeight() {
+                var $logo = $('.logo');
+                $logo.on('load', function () {
+                  headerHeight = this.height;
+                  
+                });
+              }
+            
+              var $adminBar = $('.admin-notice__bar'),
+                  $body = $('body.home-landing-page, body.course-landing-page, body.bundle-landing-page, body.page-template, body.coming-soon-page, body.student-certificate-page'),
+                  $header = $('.header'),
+                  $main = $('.home-landing-page main, .course-landing-page main, .bundle-landing-page main, .page-template main, .coming-soon-page main, .student-certificate-page main'),
+                  $dropdownToggle = $('.dropdown__toggle-button'),
+                  $mobileButton = $('.header__mobile-button'),
+                  $navigation = $('.header__nav'),
+                  $dropdownMenu = $('.dropdown__menu');
+            
+                  dynamicHeaderHeight();
+            
+              var adminBarHeight = $adminBar.outerHeight(),
+                  beforeHeaderHeight = $body.find('>div').nextUntil('.header').outerHeight(),
+                  headerTop = $header.offset().top,
+                  isMobile = window.matchMedia("only screen and (max-width: 767px)");
+            
+              if(adminBarHeight != NaN) {
+                $body.css({
+                  'margin-bottom': adminBarHeight
+                });
+              }
+              $dropdownToggle.on('click', function(e) {
+                $('.dropdown').toggleClass('open');
+                $dropdownToggle.attr('aria-expanded', $dropdownToggle.attr('aria-expanded') == 'true' ? 'false' : 'true');
+              });
+              $mobileButton.on('click', function(e) {
+                $header.attr('data-menu', $header.attr('data-menu') == 'open' ? 'closed' : 'open');
+                $mobileButton.attr('aria-expanded', $mobileButton.attr('aria-expanded') == 'true' ? 'false' : 'true');
+                $mobileButton.toggleClass('open');
+                $navigation.focus();
+              });
+              
+                $(window).on('scroll', function (e) {
+                  if(!isMobile.matches) {
+                    if ($(window).scrollTop() > headerTop) {
+                      $adminBar.addClass('fixed');
+                      $header.addClass('fixed');
+                      if($header.data('menu-style') != 'floating') {
+                        $body.css({
+                          'padding-top': beforeHeaderHeight + headerHeight,
+                        });
+                      }
+                    }
+                    if ($(window).scrollTop() <= headerTop) {
+                      $adminBar.removeClass('fixed');
+                      if($header.data('menu-style') != 'floating') {
+                        $body.css({
+                          'padding-top': 0
+                        });
+                      }
+                      $header.removeClass('fixed');
+                    }
+                  }
+                  else {
+                    $header.removeClass('fixed');
+                  }
+                });
+              
+              $(window).on('resize', function() {
+                dynamicHeaderHeight();
+                
+              });
+            });
+        </script>
+        <style>
+                      
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+        </style>
+        <style>
+    
+    .dropdown-menu li {
+  position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+  display: block;
+}
+        </style>
+    </head>
+    <body>
+    <!-- header -->  
+    <header class="header" data-preview-item="header" data-menu-style="" data-menu-type="header__nav--overlay" data-section-uid="page_header" data-menu="open">
+        <div class="header__container">
+          <div class="header__wrapper">
+            <section class="header__logo header__logo___2909e">
+        
+          <a href="/">
+            <img src="https://import.cdn.thinkific.com/619867%2Fcustom_site_themes%2Fid%2FNeRysKtNQ6K2XvjZIqjZ_newlogo.png" srcset="https://import.cdn.thinkific.com/619867%2Fcustom_site_themes%2Fid%2FNeRysKtNQ6K2XvjZIqjZ_newlogo.png?width=384&amp;dpr=1 1x, https://import.cdn.thinkific.com/619867%2Fcustom_site_themes%2Fid%2FNeRysKtNQ6K2XvjZIqjZ_newlogo.png?width=384&amp;dpr=2 2x, https://import.cdn.thinkific.com/619867%2Fcustom_site_themes%2Fid%2FNeRysKtNQ6K2XvjZIqjZ_newlogo.png?width=384&amp;dpr=3 3x" alt="logo" class="logo img-responsive" loading="lazy">
+            <h1 class="sr-only">
+              PLPAcademy
+            </h1>
+          </a>
+        
+      </section>
+      
+            <button class="header__mobile-button hidden-print open" aria-expanded="true">
+        <span class="header__mobile-button__toggle-icon">
+          <span>Toggle menu</span>
+        </span>
+            </button>
+            <button>
+        <span class="header__mobile-button__label ">
+          Menu
+        </span>
+      </button>
+      <nav class="header__nav hidden-print">
+        <ul>
+          
+      
+      
+        
+          <li class="header__nav-item">
+            <a href="/collections" target="_self">All Courses</a>
+          </li>
+        
+          <li class="header__nav-item">
+            <a href="https://powerlearnproject.org/" target="_self">POWER LEARN PROJECT</a>
+          </li>
+        
+      
+      
+          
+      
+      
+      
+          
+            <li class="header__nav-item header__nav-sign-in">
+              <a href="/users/sign_in">
+                Sign In
+              </a>
+            </li>
+          
+          
+        </ul>
+      </nav>
+      
+          </div>
+        </div>
+      </header>
+    <!-- header -->
+    <!-- hero slider Start -->
+    <div class="banner-wrap">
+        <div class="row m-0" style="background-color:#ADD8E6;">
+            <div class="col-md-6 banner-left pt-md-0 pt-5 pb-md-0 pb-sm-4" style="background-color:#ADD8E6;">
+                <div class="container pt-md-0 pt-5" style="background-color:#ADD8E6;">
+                    <div class="banner-info ps-xxl-5 ps-xl-0 ps-5 ms-lg-5 py-md-0 py-5">
+                        <br></br>
+                        <h3 style="color:#8b0e3a;">Discover the world of online learning and Career Opportunity today </h3>
+    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 banner-right">
+                <div class="text-center py-5">
+                 <a href="#small-dialog" class="popup-with-zoom-anim play-view text-center" style="color: #8b0e3a;">
+                  <span class="video-play-icon" style="color: #8b0e3a;"></span>
+                  <span class="fa fa-play"></span>
+                </a>
+                <!-- dialog itself, mfp-hide class is required to make dialog hidden -->
+                <div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+                     <iframe width="560" height="315" src="https://www.youtube.com/embed/Ur_62xbPC5s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                     </iframe> 
+                </div>
+                <!--//video-->           
+                </div>
+            </div>
+        </div>
+    </div>
+    <br></br> 
+    <main class="sign-in" id="main-content" role="main">
+        <div class="sign-in__container">
+          <div class="sign-in__wrapper">
+            <a id="cst-v2-section-signin_form" style="opacity: 0; width: 0 !important; display: block;"></a><article class="sign-in__form">
+        <h2 class="page__heading">
+          Login
+        </h2>
+      
+        <form id="sign_in_110c29e5ab" action="/users/sign_in" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="authenticity_token" value="JSt1GJ07wxnC4HROBHoKj4slVVaRkOqJ9W6XYGafky7JZOM21qUDKIjUp+YCuacpF1yRUklC+snn5sNNPf2tCA==" autocomplete="off">
+          
+      
+          <div class="form__group">
+            
+            <label for="user[email]" class="form__label">
+              Email Address
+            </label>
+            <input type="email" id="user[email]" name="user[email]" value="" placeholder="Email" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" required="" class="form__control" aria-describedby="user[email]-error" data-qa="sign-in-email__input">
+      
+            <p id="user[email]-error" class="form__error-msg hidden" role="alert">
+              Please enter a valid email address
+            </p>
+          </div>
+      
+          <div class="form__group">
+            
+            <label for="user[password]" class="form__label">
+              Password
+            </label>
+            <input type="password" id="user[password]" name="user[password]" placeholder="Password" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" required="" class="form__control" aria-describedby="user[password]-error" data-qa="sign-in-password__input">
+      
+            <p id="user[password]-error" class="form__error-msg hidden" role="alert">
+              Password must be at least 8 characters
+            </p>
+          </div>
+      
+          <div class="form__group form__remember-me">
+            
+            
+            <input type="hidden" name="user[remember_me]" value="0">
+      
+            <input type="checkbox" id="user[remember_me]" name="user[remember_me]" value="1" class="form__control">
+            <label for="user[remember_me]" class="form__label">
+              Remember me
+            </label>
+      
+            <a href="/users/password/new" class="form__forgot-password">
+              Forgot Password?
+            </a>
+          </div>
+      
+          
+          <div class="form__group honeypot-field">
+            <label aria-hidden="true" for="confirm-email">If you are a human, ignore this field</label>
+            <input aria-hidden="true" type="text" name="confirm-email" id="confirm-email" autocomplete="off" tabindex="-1">
+          </div>
+      
+          
+            <script>
+        var honeypotField = document.querySelector('.honeypot-field #confirm-email');
+        function onSubmit(token) {
+          if (honeypotField && honeypotField.value === '') {
+            document.getElementsByTagName('form')[0].submit();
+          } else {
+            // Most likely a spam bot if the honeypot field has a value, don't submit form
+            return false;
+          }
+        }
+      </script>
+      <div class="form__button-group">
+        <div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LcC9KkZAAAAACd6VfH-PeYxGEshd5o9aqBRkoKm&amp;co=aHR0cHM6Ly9hY2FkZW15LnBvd2VybGVhcm5wcm9qZWN0Lm9yZzo0NDM.&amp;hl=en&amp;v=4rwLQsl5N_ccppoTAwwwMrEN&amp;size=invisible&amp;cb=9gz7pzls4v6t" width="256" height="60" role="presentation" name="a-c0kmofne0vmk" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div><button type="submit" class="button button-primary g-recaptcha" data-sitekey="6LcC9KkZAAAAACd6VfH-PeYxGEshd5o9aqBRkoKm" data-callback="onSubmit">
+          Sign in
+        </button>
+      </div>
+      
+          
+        </form>
+      
+        
+      
+      
+        <div class="remote-sign-in__vendor-logins">
+          <h2 class="remote-sign-in__divider">
+            <span>Or sign in with</span>
+          </h2>
+          <h3 class="remote-sign-up__divider">
+            <span>Or sign up with</span>
+          </h3>
+          
+            <ul class="remote-sign-in__vendor-list">
+              
+                <li class="remote-sign-in__vendor-list-item">
+                  <a src="https://linkedin.com" class="button linkedin" aria-label="https://ke.linkedin.com">
+                    <i class="https://images.app.goo.gl/iF6Kv11cpR3RWkPY9" aria-hidden="true"></i>
+                  </a>
+                </li>
+              
+                <li class="remote-sign-in__vendor-list-item">
+                  <a src="https://m.facebook.com" class="button facebook" aria-label="https://m.facebook.com">
+                    <i class="https://images.app.goo.gl/RJTjKjdmvUvz6PX17" aria-hidden="true"></i>
+                  </a>
+                </li>
+              
+                <li class="remote-sign-in__vendor-list-item">
+                  <a src="https://www.google.com" class="button google" aria-label="https://www.google.com">
+                    <i class="https://images.app.goo.gl/BYkb2FFBvRZZWHVz8" aria-hidden="true"></i>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </div>
+      
+      
+      </article>
+      
+      <aside class="sign-in__sign-up">
+        <a href="/users/sign_up">
+          Create a new account
+        </a>
+      </aside>
+      
+      
+      
+      <script>
+        function addErrorMsg(fieldId, errorId) {
+          fieldId.addClass('input--error');
+          fieldId.attr("aria-invalid", "true");
+          errorId.removeClass('hidden');
+        }
+        function removeErrorMsg(fieldId, errorId) {
+          fieldId.removeClass('input--error');
+          fieldId.attr("aria-invalid", "false");
+          errorId.addClass('hidden');
+        }
+      
+        var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var $email = $('#user\\[email\\]');
+        var $emailError = $('#user\\[email\\]-error')
+        $email.on('focusout', function() {
+          if (!regex.test($email.val())) {
+            addErrorMsg($email, $emailError);
+          } else {
+            removeErrorMsg($email, $emailError);
+          }
+        });
+        var $leadCapture = $('#-email')
+        var $leadCaptureError = $('#-error')
+        $leadCapture.on('focusout', function() {
+          if (!regex.test($leadCapture.val())) {
+            addErrorMsg($leadCapture, $leadCaptureError);
+          } else {
+            removeErrorMsg($leadCapture, $leadCaptureError);
+          }
+        });
+      
+        var $password = $('#user\\[password\\]');
+        var $passwordError = $('#user\\[password\\]-error')
+        $password.on('focusout', function() {
+        if ($password.val().length < 6) {
+          addErrorMsg($password, $passwordError);
+        } else {
+          removeErrorMsg($password, $passwordError);
+        }
+        });
+      
+        var $firstName = $('#user\\[first_name\\]');
+        var $firstNameError = $('#user\\[first_name\\]-error');
+        $firstName.on('focusout', function() {
+          if ($firstName.val() === '') {
+            addErrorMsg($firstName, $firstNameError);
+          } else {
+            removeErrorMsg($firstName, $firstNameError);
+          }
+        });
+      
+        var $lastName = $('#user\\[last_name\\]');
+        var $lastNameError = $('#user\\[last_name\\]-error');
+        $lastName.on('focusout', function() {
+          if ($lastName.val() === '') {
+            addErrorMsg($lastName, $lastNameError);
+          } else {
+            removeErrorMsg($lastName, $lastNameError);
+          }
+        });
+      
+        var $checkbox = $('#user\\[terms\\]');
+        var $checkboxError = $('#user\\[terms\\]-error');
+        $checkbox.on('focusout', function() {
+          if (!$checkbox.is(':checked')) {
+            addErrorMsg($checkbox, $checkboxError);
+          } else {
+            removeErrorMsg($checkbox, $checkboxError);
+          }
+        });
+      
+        var $file = $('.my-account__avatar-label');
+        $file.on('change', function() {
+          $file.append('<p id="my-account__avatar--error" class="sr-only" role="alert">liquid.partials.form.file_changed</p>')
+        });
+      
+        var $select = $('.custom-select');
+        var $selectError = $('#custom-select-error')
+        $select.on('focusout', function() {
+          if($(this).prop('required')){
+            if (!$select.val()) {
+              addErrorMsg($select, $selectError);
+            } else {
+              removeErrorMsg($select, $selectError);
+            }
+          }
+        });
+      
+        var $customField = $('.custom-field');
+        var $customFieldError = $('#custom-field-error');
+        $customField.on('focusout', function() {
+          if($(this).prop('required')){
+            if ($customField.val() === '') {
+              addErrorMsg($customField, $customFieldError);
+            } else {
+              removeErrorMsg($customField, $customFieldError);
+            }
+          }
+        });
+      </script>
+      
+      
+      
+      
+          </div>
+        </div>
+        
+      </main>
+    <!--//footer-->
+    <footer class="w3l-footer">
+        <div class="shape-footer">
+       
+        </div>
+        <div class="w3l-footer-16 py-5">
+            <div class="container">
+                <div class="row footer-p">
+                    <div class="col-lg-4 pe-lg-5">
+                        <h3>About Us</h3>
+                        <p class="mt-3">Power Learn Project
+is an impact organization whose goal is to drive transformative change
+for youth in Africa by powering them with relevant technology capacity through provision of quality and decentralized tech training.</p>
+                        <div class="columns-2 mt-4 pt-1">
+                            <ul class="social">
+                                <li><a href="https://www.bing.com/ck/a?!&&p=0a267a213c8b0a7514851113f46798fd9984a68e2ca64c9acf318e2bd963989aJmltdHM9MTY1NjkyMzEwMCZpZ3VpZD05MjA3NWMyZS05MGVkLTQyNjYtOGFmMy01YjEyYTU3Njk1NjEmaW5zaWQ9NTI1Mg&ptn=3&hsh=1&fclid=cbba4662-fb72-11ec-b803-e57a8f3b14f8&u=a1aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1Bvd2VyLUxlYXJuLVByb2plY3QtMTAwMTc1NTI5MTkyODU0Lw&ntb=1"><i class="button facebook"></i></a>
+                                </li>
+                                <li><a href="https://www.bing.com/ck/a?!&&p=35742d44004160b812fc08ae393227b9bdb01c4ae847d7d8384862b5303b17c8JmltdHM9MTY1Njk0MTIyNyZpZ3VpZD0zZGUzODYzNC04NGY4LTRhMDktOGJhZS1iMWEyMzgyY2YwMTYmaW5zaWQ9NTA5MA&ptn=3&hsh=1&fclid=ffcd1bb3-fb9c-11ec-b3ce-97e0c23d3b6a&u=a1aHR0cHM6Ly9saW5rdHIuZWUvcG93ZXJsZWFybnByb2plY3Q&ntb=1"><i class="button linktr.ee"></i></a>
+                                </li>
+                                <li><a href="https://www.bing.com/ck/a?!&&p=28a3031fc7da2dd668fed62b3d8c387f72f30ab26834c81e133925b8ff6438b9JmltdHM9MTY1Njk0MTA0MSZpZ3VpZD00ZTcyMzEwMC1lMmU0LTQ3N2MtYTllOC1hMzFlODdkMDc4YTgmaW5zaWQ9NTA5NQ&ptn=3&hsh=1&fclid=91157eb7-fb9c-11ec-b7b9-711def024ecb&u=a1aHR0cHM6Ly90d2l0dGVyLmNvbS9QTFBBZnJpY2E&ntb=1"><i class="button twitter"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-lg-0 mt-5">
+                        <div class="row">
+                            <div class="col-xl-5 col-6 column">
+                                <h3>Quick Links</h3>
+                               <ul class="footer-gd-16">
+                                    <li><a href="index.html">Home</a> | <a href="about.html">About us</a></li>
+                                  
+                                     <li> <a href="services.html">Programs</a> | <a href="plpacademy.php">PLP Academy</a> | <a href="careers.php">Careers at PLP</a></li>
+                                    <li><a href="blog.php">Media</a> | <a href="contact.html">Talk to Us</a></li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="col-6 column">
+                                <h3>Contact Info</h3>
+                                <ul class="footer-contact-list">
+                                    <li class="">The Pavilion, Westlands
+                                        Lower Kabete Road, Nairobi,Kenya</li>
+                                    <li class="mt-2"><a href="tel:+12 23456790">P.O Box 777000-00508</a></li>
+                                    <li class="mt-2"><a href="mailto:info@powerlearnproject.org">info@powerlearnproject.org</a></li>
+                                    <li class="mt-2"><a href="https://www.powerlearnproject.org">www.powerlearnproject.org</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-7 col-sm-8 column mt-lg-0 mt-4 pl-xl-0">
+                         <h3>Subscribe to news and updates. </h3>
+                        <div class="end-column">
+                            <form action="#" class="subscribe" method="post">
+                                <input type="email" name="email" placeholder="Email Address" required="">
+                                <button><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="below-section text-center pt-lg-4 mt-5">
+                    <p class="copy-text">© 2022 Power Learn Project. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--//footer-->
+    </body>
+</html>  
+    
+         
